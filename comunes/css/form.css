@@ -1,0 +1,171 @@
+#form{
+	border: 1px solid black;
+	font-family: 'Times New Roman';
+	border-spacing: 0px;
+}
+#form tr{
+	border:1px solid black;
+	border-spacing: 0px;
+}
+#form tr td{
+	color: black;
+	text-align: center;
+	border: 1px solid black;
+	border-spacing: 0px;
+}
+#form tr td .left{
+	color: black;
+	text-align: left;
+	border: 1px solid black;
+	border-spacing: 0px;
+}
+#form tr th{
+	background-color: black;
+	color: #cccccc;
+	text-align: center;
+	border: 1px solid black;
+	border-spacing: 0px;
+}
+#form tr td input.submit{
+	background-color: #57bae8;
+	border-radius: 5px;
+	border: 1px solid #57bae8;
+	color: white;
+	font-weight: bold;
+	font-size: 16px;
+	height: 30px;
+}
+#form tr td input.submit:hover{
+	background-color: #569ae7;
+	border-radius: 5px;
+	border: 1px solid #569ae7;
+	color: white;
+	font-weight: bold;
+	cursor: pointer;
+	font-size: 15px;
+}
+#tabla{
+	border: 0px solid black;
+	font-family: 'Times New Roman';
+	border-spacing: 0px;
+	border-radius: 0px;
+}
+#tabla tr{
+	border:1px solid black;
+	border-spacing: 0px;
+}
+#tabla tr td{
+	color: black;
+	text-align: left;
+	border: 1px solid black;
+	border-spacing: 0px;
+	padding-left: 20px;
+	padding-right: 20px;
+	border-radius: 5px;
+}
+#tabla tr td.left{
+	color: black;
+	text-align: left;
+	border: 1px solid black;
+	border-spacing: 0px;
+}
+#tabla tr th{
+	background-color: black;
+	color: #cccccc;
+	text-align: center;
+	border: 1px solid black;
+	border-spacing: 0px;
+	border-radius: 5px;
+}
+.campo{
+	border-radius: 5px;
+	padding-left: 5px;
+	height: 25px;
+}
+.campo:hover, .campo:focus{
+	border-color: #0060ff;
+	background-color: #ebebeb;
+}
+.cate{
+	border-radius: 5px;
+	margin-bottom: 15px;
+	margin-top: 15px;
+	background:#E2E7ED; 
+	background:-moz-linear-gradient(top,  #E2E7ED 0%, #C6CED0 100%); 
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#E2E7ED), color-stop(100%,#C6CED0)); 
+	background:-webkit-linear-gradient(top,  #E2E7ED 0%,#C6CED0 100%); 
+	background:o-linear-gradient(top,  #E2E7ED 0%,#C6CED0 100%); 
+	background:-ms-linear-gradient(top,  #E2E7ED 0%,#C6CED0 100%); 
+	background:linear-gradient(top,  #E2E7ED 0%,#C6CED0 100%); 
+	filter:progid:DXImageTransform.Microsoft.gradient( startColorstr='#E2E7ED', endColorstr='#C6CED0',GradientType=0 ); 
+}
+.arch{
+	border-radius: 5px;
+	margin-left: 15px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	background:#E2E7ED;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+.conte{
+	padding-right: 0px;
+	padding-left: 0px;
+}
+fieldset{
+	background: none repeat scroll 0% 0% rgb(238, 238, 238);
+	border-radius: 8px;
+	box-shadow: 1px 1px 2px rgb(255, 255, 255) inset;
+}
+legend{
+
+	background-color: rgb(255, 255, 255);
+	border: 1px solid rgb(170, 170, 170);
+	box-shadow: 3px 3px 15px rgb(187, 187, 187);
+}
+table{
+	border: 0px solid black;
+	padding-left: 0px;
+	padding-right: 0px;
+	border-spacing: 0px;
+}
+table tr td input.submit{
+	background-color: #57bae8;
+	border-radius: 5px;
+	border: 1px solid #57bae8;
+	color: white;
+	font-weight: bold;
+	font-size: 16px;
+}
+table tr td input.submit:hover{
+	background-color: #569ae7;
+	border-radius: 5px;
+	border: 1px solid #569ae7;
+	color: white;
+	font-weight: bold;
+	cursor: pointer;
+	font-size: 15px;
+}
+.resultado{
+	width: 250px;
+	height: auto;
+	background-color: #ebd63b;
+	color: #7c753e;
+	font-size: 20px;
+	vertical-align: center;
+	border-radius: 10px;
+	font-weight: bolder;
+}
+.saludo{
+	background-color: #fafafa;
+	border-radius: 7px;
+	text-align: left;
+	padding-left: 20px;
+}
+textarea{
+	border-radius: 5px;
+}
+textarea:hover, textarea:focus{
+	border-color: #0093ff;
+	background-color: #fcfcfc;
+}
