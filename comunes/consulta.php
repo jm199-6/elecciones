@@ -6,7 +6,6 @@
     $sqlCandidatos="select * from candidato";
     $resCandidatos= $conn->query($sqlCandidatos);
     $data = "";
-
     if ($resCandidatos->num_rows > 0) {
         while($row=$resCandidatos->fetch_assoc()){
             $sqlVotos = "SELECT COUNT(vc.dui_candidato) AS 'cant_votos', c.nombres AS 'nombres', c.apellidos AS `apellidos` FROM voto_candidato vc INNER JOIN candidato c ON (vc.dui_candidato = c.dui) WHERE vc.dui_candidato = '".$row['dui']."' order by cant_votos desc";
@@ -14,23 +13,32 @@
             $resVotos = $conn->query($sqlVotos);
             if($resVotos->num_rows > 0){
                 $rowVotos = $resVotos->fetch_assoc();
-
-                $data .= '{y: "'.$rowVotos['nombres'].' '.$rowVotos['apellidos'].'", a: '.$rowVotos['cant_votos'].'},';
+								$dataArray[] = ["y" => $rowVotos['nombres'].' '.$rowVotos['apellidos'], "a" => $rowVotos['cant_votos']];
             }
         }
-        $data = substr($data, 0, strlen($data) -1);
+				$longitud = count($dataArray);
+			    for ($i = 0; $i < $longitud; $i++) {
+			        for ($j = 0; $j < $longitud - 1; $j++) {
+			            if ($dataArray[$j]["a"] < $dataArray[$j + 1]["a"]) {
+			                $temporal = $dataArray[$j];
+			                $dataArray[$j] = $dataArray[$j + 1];
+			                $dataArray[$j + 1] = $temporal;
+			            }
+			        }
+			    }
+				//$dataArray = rsort($dataArray);
+				$data = json_encode($dataArray);
     }else{
       $data = '{
                   y: "No se encontraron resultados", a: 0, labelColor: "red"
               }';
     }
-
     //
     ?>
     $(function() {
 			Morris.Bar({
 					element: 'morris-bar-chart',
-					data: [<?php echo $data; ?>],
+					data: <?php echo $data; ?>,
 					xkey: 'y',
 					ykeys: ['a'],
 					labels: ['Votos'],
@@ -58,6 +66,7 @@
 });
 </script>
 <div class="col-lg-7 col-md-7 col-sm-7">
+
     <div class="panel panel-default">
 
         <!-- /.panel-heading -->
@@ -70,19 +79,24 @@
 </div>
 <div class="col-lg-3 col-md-3 col-sm-5">
 	<div class="list-group">
-		<a href="#" class="list-group-item">
-			Coordinador
-			<span class="pull-right text-muted small">
-				<em>Jose Antonio Mendoza </em>
-				<span class="badge pull-right" style="margin-left:10px;">2</span>
-			</span>
-		</a>
-		<a href="#" class="list-group-item">
-			Sub-Coordinador
-			<span class="pull-right text-muted small">
-				<em>Veronica Rivas </em>
-				<span class="badge pull-right" style="margin-left:10px;">1</span>
-			</span>
-		</a>
+		<?php
+		$sqlP = "select id_puesto, nombre_puesto from puesto";
+
+		$resPuestos = $conn->query($sqlP);
+		while($row=$resPuestos->fetch_assoc()){
+				$dataPuestos[] = $row['nombre_puesto'];
+		}
+		for ($i=0; $i < count($dataPuestos) ; $i++) {
+
+		 ?>
+			<a href="#" class="list-group-item">
+				<?php echo $dataPuestos[$i]; ?>
+				<span class="pull-right text-muted small">
+					<em><?php echo $dataArray[$i]["y"]; ?> </em>
+					<span class="badge pull-right" style="margin-left:10px;"><?php echo $dataArray[$i]["a"]; ?></span>
+				</span>
+			</a>
+			<?php
+		} ?>
 	</div>
 </div>

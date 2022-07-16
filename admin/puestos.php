@@ -1,5 +1,5 @@
 <script type="text/javascript">
-	chTitle("Admin del Sistema - Partidos");
+	chTitle("Admin del Sistema - Puestos");
 </script>
 
 	<div class="col-sm-10 col-md-10 col-lg-10 ">
@@ -8,31 +8,32 @@
 		<div class="tooltip-demo">
 	  	<button type="button" class="btn btn-success btn-circle btn-lg" style="float: right;" data-target="#ModalPuesto" data-toggle="modal" data-placement="right" title="Agregar Puesto"><i class="fa fa-plus"></i></button>
 	  </div>
-	
+
 	  <div class="modal fade" id="ModalPuesto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	      <div class="modal-dialog">
 	          <div class="modal-content">
-	          	<form method="post" enctype='multipart/form-data'>
+	          	<form method="post">
 	                <div class="modal-header">
 	                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 	                    <h4 class="modal-title" id="myModalLabel">Puesto a seleccionar</h4>
 	                </div>
 	                <div class="modal-body">
 	                	<!-- CAMPOS DEL FORMULARIO-->
-	                    <div id="nUsuario" class="form-group input-group">
-							<span class="input-group-addon">
-								<font style="vertical-align:inherit;">
-									Puesto
-								</font>
-							</span>
-							<!--input class='form-control' id="cl" type="hidden" name="pag" value="partidos.php" /-->
-							<input class='form-control' id="log" maxlength="250" type="text" name="nombreP" placeholder="Nombre del puesto" title="" />
-						</div>
+	                    <div id="nPuesto" class="form-group input-group">
+												<span class="input-group-addon">
+													<font style="vertical-align:inherit;">
+														Puesto
+													</font>
+												</span>
+												<!--input class='form-control' id="cl" type="hidden" name="pag" value="partidos.php" /-->
+												<input class='form-control' id="nombre_puesto" maxlength="250" type="text" name="nombre_puesto" placeholder="Nombre del puesto" title="" />
+											</div>
+									</div>
 	                <div class="modal-footer">
 	                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
 	                    <button type="submit" class="btn btn-primary">Guardar</button>
 	                </div>
-	              </form>
+	             </form>
 	          </div>
 
 	          <!-- /.modal-content -->
@@ -43,7 +44,7 @@
 	</div>
 </div>
 <div class="row">
-	
+
 	<div id="wrapper">
 		<div id="page-wrapper" style="margin-left: 0px;">
 				<div class="panel panel-primary">
@@ -53,12 +54,12 @@
 								<tr>
 									<th>Codigo</th>
 									<th>Nombre del puesto</th>
-									<th>Accion</th>
+									<!--th>Accion</th-->
 								</tr>
 							</thead>
 							<tbody>
 							<?php
-										$sql = "SELECT u.dui, u.nombres, u.apellidos, u.direccion, p.nombre_priv, c.estado, c.pass FROM usuario u inner join cuenta c on u.idUsuario=c.idUsuario inner join privilegio p on c.idPriv=p.id_priv";
+										$sql = "SELECT id_puesto, nombre_puesto FROM puesto ";
 
 										$result = $conn->query($sql);
 
@@ -66,26 +67,26 @@
 
 
 											while($row=$result->fetch_assoc()){
-												$dui=desencript($row['dui']);
-												$nombres=$row['nombres'];
-												
+												$id_puesto=$row['id_puesto'];
+												$nombre_puesto=$row['nombre_puesto'];
+
 												echo "<tr>";
-												echo "<td>$dui</td>
-												<td>$nombres</td>";
-												
-													echo "<td><a href='?a=".encript("usuarios.php")."&estado=I&idUsuario=".encript("$dui")."'><button class='btn btn-success'>Cambiar Estado</button></a></td>";
-												
+												echo "<td>$id_puesto</td>
+												<td>$nombre_puesto</td>";
+
+													//echo "<td><a href='?a=".encript("usuarios.php")."&estado=I&idUsuario=".encript("$dui")."'><button class='btn btn-success'>Cambiar Estado</button></a></td>";
+
 												echo "</tr>";
 											}
 
 										}else{
-											echo "<div id='notificacion' style='display: block;' class='alert alert-warning alert-dismissable'>
+											/*echo "<td colspan='2'><div id='notificacion' style='display: block;' class='alert alert-warning alert-dismissable'>
 															<font style='vertical-align: inherit;'>
 																<font style='vertical-align: inherit;'>
 																	No se han encontrado resultados.
 															</font>
 														</font>
-												</div>";
+												</div></td>";*/
 										}
 
 									?>
@@ -111,42 +112,28 @@
 	</div>
 </div>
 <?php
-	if(isset($_POST['nombreP'])){
-		$nombreP = $_POST['nombreP'];
-
-		if (isset($_FILES["logoP"])) {
-			if (is_uploaded_file($_FILES['logoP']['tmp_name'])){
-				$tmp_name = $_FILES['logoP']['tmp_name'];
-				$name="comunes/img/logos/".$_FILES['logoP']['name'];
-				move_uploaded_file($tmp_name, "../".$name);
-
+	if(isset($_POST['nombre_puesto'])){
+		$nombre_puesto = $_POST['nombre_puesto'];
 				//datos para tratar con la base de datos
 
-				$tabla="partido";
-				$campos="nombre_partido,logo_partido";
-				$values="'$nombreP','$name'";
+		$tabla="puesto";
+		$campos="nombre_puesto";
+		$values="'$nombre_puesto'";
 
-				$name = substr($name, 3, (strlen($name)-1));
+		$sqlI="INSERT INTO $tabla ($campos) VALUES ($values) ";
 
+		if ($conn->query($sqlI) == TRUE) {
 
-				$sqlI="INSERT INTO $tabla ($campos) VALUES ($values) ";
-
-				if ($conn->query($sqlI) == TRUE) {
-
-						echo "<script>alert('Registro agregado satisfactoriamente.');
-						document.location='?a=".encript("partidos.php")."';
-						</script>";
-				}else {
-					echo "Error: $sql <br> $conn->error ";
-				}
-			}else{
+				echo "<script>alert('Registro agregado satisfactoriamente.');
+				document.location='?a=".encript("puestos.php")."';
+				</script>";
+		}else{
 				echo "
 				<script>
-				alert('No se ha podido subir el archivo, no se ha seleccionado alguno.');
-					document.location='?pag=partidos.php';
+				alert('Error: $sql <br> $conn->error .');
+					document.location='?pag=puestos.php';
 				</script>
 				";
-			}
 		}
 	}
 ?>

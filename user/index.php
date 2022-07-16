@@ -28,7 +28,7 @@
 <html lang='es'>
 <head>
 <meta charset="UTF-8">
-<?php include("./referencias.php");
+<?php include("../comunes/referencias.php");
 	require_once "../comunes/encript.php";
 ?>
 	<script type="text/javascript">
