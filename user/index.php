@@ -399,7 +399,7 @@
 
 				if (isset($_POST['savePass'])) {
 				$dui_u1 = encript($_POST['dui_u1']);
-				$pass1 = encript($_POST['pass1']);
+				$pass1 = encript($_POST['p1']);
 
 
 
